@@ -7,7 +7,6 @@ import typing
 from typing import Any
 from bookkeeper.repository.abstract_repository import AbstractRepository, T
 from bookkeeper.models.expense import Expense
-from bookkeeper.repository.abstract_repository import Model
 
 
 class SQLiteRepository(AbstractRepository[T]):

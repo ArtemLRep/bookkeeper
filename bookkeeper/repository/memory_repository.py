@@ -25,7 +25,7 @@ class MemoryRepository(AbstractRepository[T]):
         obj.pk = pk
         return pk
 
-    def get(self, pk: int) -> T | None:
+    def get_by_pk(self, pk: int) -> T | None:
         return self._container.get(pk)
 
     def get_all(self, where: dict[str, Any] | None = None) -> list[T]:
@@ -34,10 +34,10 @@ class MemoryRepository(AbstractRepository[T]):
         return [obj for obj in self._container.values()
                 if all(getattr(obj, attr) == value for attr, value in where.items())]
 
-    def update(self, obj: T) -> None:
+    def update_by_pk(self, obj: T) -> None:
         if obj.pk == 0:
             raise ValueError('attempt to update object with unknown primary key')
         self._container[obj.pk] = obj
 
-    def delete(self, pk: int) -> None:
+    def delete_by_pk(self, pk: int) -> None:
         self._container.pop(pk)

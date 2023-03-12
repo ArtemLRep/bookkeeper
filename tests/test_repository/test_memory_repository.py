@@ -5,7 +5,7 @@ import pytest
 
 @pytest.fixture
 def custom_class():
-    class Custom():
+    class Custom:
         pk = 0
 
     return Custom
@@ -20,13 +20,13 @@ def test_crud(repo, custom_class):
     obj = custom_class()
     pk = repo.add(obj)
     assert obj.pk == pk
-    assert repo.get(pk) == obj
+    assert repo.get_by_pk(pk) == obj
     obj2 = custom_class()
     obj2.pk = pk
-    repo.update(obj2)
-    assert repo.get(pk) == obj2
-    repo.delete(pk)
-    assert repo.get(pk) is None
+    repo.update_by_pk(obj2)
+    assert repo.get_by_pk(pk) == obj2
+    repo.delete_by_pk(pk)
+    assert repo.get_by_pk(pk) is None
 
 
 def test_cannot_add_with_pk(repo, custom_class):
@@ -43,13 +43,13 @@ def test_cannot_add_without_pk(repo):
 
 def test_cannot_delete_unexistent(repo):
     with pytest.raises(KeyError):
-        repo.delete(1)
+        repo.delete_by_pk(1)
 
 
 def test_cannot_update_without_pk(repo, custom_class):
     obj = custom_class()
     with pytest.raises(ValueError):
-        repo.update(obj)
+        repo.update_by_pk(obj)
 
 
 def test_get_all(repo, custom_class):

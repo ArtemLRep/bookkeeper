@@ -4,18 +4,18 @@
 from collections import defaultdict
 from dataclasses import dataclass
 from typing import Iterator
-
+from bookkeeper.repository.abstract_repository import Model
 from ..repository.abstract_repository import AbstractRepository
 
 
 @dataclass
-class Category:
+class Category(Model):
     """
     Категория расходов, хранит название в атрибуте name и ссылку (id) на
     родителя (категория, подкатегорией которой является данная) в атрибуте parent.
     У категорий верхнего уровня parent = None
     """
-    name: str
+    name: str = 'Not stated'
     parent: int | None = None
     pk: int = 0
 
@@ -24,29 +24,25 @@ class Category:
         """
         Получить родительскую категорию в виде объекта Category
         Если метод вызван у категории верхнего уровня, возвращает None
-
         Parameters
         ----------
         repo - репозиторий для получения объектов
-
         Returns
         -------
         Объект класса Category или None
         """
         if self.parent is None:
             return None
-        return repo.get(self.parent)
+        return repo.get_by_pk(self.parent)
 
     def get_all_parents(self,
                         repo: AbstractRepository['Category']
                         ) -> Iterator['Category']:
         """
         Получить все категории верхнего уровня в иерархии.
-
         Parameters
         ----------
         repo - репозиторий для получения объектов
-
         Yields
         -------
         Объекты Category от родителя и выше до категории верхнего уровня
@@ -63,11 +59,9 @@ class Category:
         """
         Получить все подкатегории из иерархии, т.е. непосредственные
         подкатегории данной, все их подкатегории и т.д.
-
         Parameters
         ----------
         repo - репозиторий для получения объектов
-
         Yields
         -------
         Объекты Category, являющиеся подкатегориями разного уровня ниже данной.
@@ -100,12 +94,10 @@ class Category:
         со стороны СУБД, результат, возможно, будет корректным, если исходные
         данные корректны за исключением сортировки. Если нет, то нет.
         "Мусор на входе, мусор на выходе".
-
         Parameters
         ----------
         tree - список пар "потомок-родитель"
         repo - репозиторий для сохранения объектов
-
         Returns
         -------
         Список созданных объектов Category
@@ -116,3 +108,11 @@ class Category:
             repo.add(cat)
             created[child] = cat
         return list(created.values())
+
+
+def get_category_pk_by_name(cat_name: str, category_data: list[Category]) -> int:
+    """
+    Возвращает pk категории по её названию
+    """
+    cat: list[int] = [x.pk for x in category_data if cat_name == x.name]
+    return cat[0]

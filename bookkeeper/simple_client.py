@@ -1,13 +1,12 @@
 """
 Простой тестовый скрипт для терминала
 """
-
 from bookkeeper.models.category import Category
 from bookkeeper.models.expense import Expense
 from bookkeeper.repository.memory_repository import MemoryRepository
 from bookkeeper.utils import read_tree
+from bookkeeper.repository.sqlite_repository import SQLiteRepository
 
-cat_repo = MemoryRepository[Category]()
 exp_repo = MemoryRepository[Expense]()
 
 cats = '''
@@ -19,7 +18,9 @@ cats = '''
 книги
 одежда
 '''.splitlines()
-
+fields = ('pk', 'name', 'parent')
+types = ('INTEGER PRIMARY KEY', 'TEXT', 'INTEGER')
+cat_repo = SQLiteRepository("test_db.db", "TestCat", fields, types, Category)
 Category.create_from_tree(read_tree(cats), cat_repo)
 
 while True:

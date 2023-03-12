@@ -40,7 +40,7 @@ class AbstractRepository(ABC, Generic[T]):
         """
 
     @abstractmethod
-    def get(self, pk: int) -> T | None:
+    def get_by_pk(self, pk: int) -> T | None:
         """ Получить объект по id """
 
     @abstractmethod
@@ -52,9 +52,9 @@ class AbstractRepository(ABC, Generic[T]):
         """
 
     @abstractmethod
-    def update(self, obj: T) -> None:
+    def update_by_pk(self, obj: T) -> None:
         """ Обновить данные об объекте. Объект должен содержать поле pk. """
 
     @abstractmethod
-    def delete(self, pk: int) -> None:
+    def delete_by_pk(self, pk: int) -> None:
         """ Удалить запись """

@@ -1,5 +1,5 @@
 """
-Модуль описывающий графический интерфейс приложения
+Модуль GUI
 """
 from typing import Any, Union
 from PySide6.QtCore import QAbstractTableModel, Qt, QSize

@@ -1,5 +1,5 @@
 """
-МОдуль точки входа. Запускает приложение
+Модуль точки входа. Запускает приложение
 """
 import sys
 from PySide6.QtWidgets import QApplication

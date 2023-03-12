@@ -1,5 +1,5 @@
 """
-Модель категории расходов
+Модуль, описывающий Модель категории расходов
 """
 from collections import defaultdict
 from dataclasses import dataclass

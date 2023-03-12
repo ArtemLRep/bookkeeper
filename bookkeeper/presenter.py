@@ -1,5 +1,5 @@
 """
-Модуль реализующий MVP
+Модуль реализующий Presenter
 """
 import datetime
 import typing

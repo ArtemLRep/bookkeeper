@@ -1,6 +1,10 @@
 """
 Модуль GUI
 """
+# pylint: disable = no-name-in-module
+# # pylint: disable=c-extension-no-member
+# pylint: disable=too-few-public-methods
+# pylint: disable=too-many-instance-attributes
 from typing import Any, Union
 from PySide6.QtCore import QAbstractTableModel, Qt, QSize
 from PySide6.QtCore import QModelIndex, QPersistentModelIndex

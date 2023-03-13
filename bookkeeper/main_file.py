@@ -1,6 +1,7 @@
 """
 Модуль точки входа. Запускает приложение
 """
+# pylint: disable = no-name-in-module
 import sys
 from PySide6.QtWidgets import QApplication
 from bookkeeper.presenter import Presenter

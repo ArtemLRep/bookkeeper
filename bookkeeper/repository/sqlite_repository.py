@@ -267,6 +267,9 @@ class DataExpenseRow:
         self.added_date = expense.added_date.strftime('%d-%m-%Y %H:%M')
 
     def display(self) -> None:
+        """
+        Вывод на экран
+        """
         print("pk: ", self.pk, '\n',
               "added_date: ", self.added_date, '\n',
               "expense_date: ", self.expense_date, '\n',

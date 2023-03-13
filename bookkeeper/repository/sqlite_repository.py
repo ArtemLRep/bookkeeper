@@ -8,6 +8,8 @@ from typing import Any
 from bookkeeper.repository.abstract_repository import AbstractRepository, T
 from bookkeeper.models.expense import Expense
 
+# pylint: disable=too-few-public-methods
+# pylint: disable=too-many-arguments
 
 class SQLiteRepository(AbstractRepository[T]):
     """
